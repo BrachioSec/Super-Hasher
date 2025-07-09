@@ -7,8 +7,8 @@ A Python tool that splits your input into 5 parts, hashes each part with a diffe
 
 ## Features
 
-- Splits input string into 5 parts
-- Hashes each part with a unique algorithm (MD5, SHA1, SHA256, SHA3_512, BLAKE2b)
+- reverses the word
+- Hashes each characther with a unique algorithm (MD5, SHA1, SHA256, SHA3_512, BLAKE2b)
 - Shuffles and concatenates hashed parts for obfuscation
 - Simple command-line interface
 
