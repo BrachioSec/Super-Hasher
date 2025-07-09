@@ -1,38 +1,25 @@
 import hashlib
-import random
 
-def split_string(s, parts=5):
-    length = len(s)
-    chunk_size = length // parts
-    chunks = []
-
-    for i in range(parts):
-        start = i * chunk_size
-        # Add remaining chars to the last chunk
-        end = start + chunk_size if i < parts - 1 else length
-        chunks.append(s[start:end])
-
-    return chunks
-
-def hash_chunk(chunk, algo):
+def hash_char(char, algo):
     h = hashlib.new(algo)
-    h.update(chunk.encode())
+    h.update(char.encode())
     return h.hexdigest()
 
-def scramble_hash(s):
+def hash_word_reversed(word):
     algos = ['md5', 'sha1', 'sha256', 'sha3_512', 'blake2b']
-    chunks = split_string(s, len(algos))
+    reversed_word = word[::-1]  # Reverse the word
 
-    hashed_chunks = []
-    for chunk, algo in zip(chunks, algos):
-        hashed = hash_chunk(chunk, algo)
-        hashed_chunks.append(hashed)
+    hashed_chars = []
+    for i, char in enumerate(reversed_word):
+        algo = algos[i % len(algos)]
+        hashed_chars.append(hash_char(char, algo))
 
-    # Shuffle the hashes
-    random.shuffle(hashed_chunks)
+    return ''.join(hashed_chars)
 
-    # Join and return
-    return ''.join(hashed_chunks)
+def scramble_hash(s):
+    words = s.split()
+    hashed_words = [hash_word_reversed(word) for word in words]
+    return ''.join(hashed_words)
 
 if __name__ == "__main__":
     user_input = input("Enter the string you want to hash: ")
